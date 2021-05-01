@@ -18,6 +18,7 @@ router.post("/api/transaction/bulk", ({body}, res) => {
     })
     .catch(err => {
       res.status(404).json(err);
+      saveRecord(formData);
     });
 });
 
@@ -30,5 +31,6 @@ router.get("/api/transaction", (req, res) => {
       res.status(404).json(err);
     });
 });
+
 
 module.exports = router;
