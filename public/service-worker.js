@@ -21,7 +21,7 @@ const FILES_TO_CACHE = [
 ];
 
 // Install the service worker
-self.addEventListener('install', function(evt) {
+self.addEventListener("install", function(evt) {
   evt.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       console.log('Your files were pre-cached successfully!');
@@ -33,7 +33,7 @@ self.addEventListener('install', function(evt) {
 });
 
 // Activate the service worker and remove old data from the cache
-self.addEventListener('activate', function(evt) {
+self.addEventListener("activate", function(evt) {
   evt.waitUntil(
     caches.keys().then(keyList => {
       return Promise.all(
@@ -52,8 +52,8 @@ self.addEventListener('activate', function(evt) {
 
 
 // Intercept fetch requests
-self.addEventListener('fetch', function(evt) {
-  if (evt.request.url.includes('/api/')) {
+self.addEventListener("fetch", function(evt) {
+  if (evt.request.url.includes("/api/")) {
     evt.respondWith(
       caches
         .open(DATA_CACHE_NAME)
@@ -80,9 +80,9 @@ self.addEventListener('fetch', function(evt) {
       const response = await caches.match(evt.request);
       if (response) {
         return response;
-      } else if (evt.request.headers.get('accept').includes('text/html')) {
+      } else if (evt.request.headers.get("accept").includes("text/html")) {
         // return the cached home page for all requests for html pages
-        return caches.match('/');
+        return caches.match("/");
       }
     })
   );
